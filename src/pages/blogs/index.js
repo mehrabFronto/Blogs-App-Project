@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function BlogsListPage({ blogsData, blogsCategories }) {
    return (
-      <main className="bg-gray-200">
+      <main className="bg-gray-100">
          {/* mobile category and sort section */}
          <div className="flex md:hidden flex-col gap-y-2 p-2">
             <MobileCategory blogsCategories={blogsCategories} />

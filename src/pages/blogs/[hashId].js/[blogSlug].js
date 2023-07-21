@@ -1,4 +1,5 @@
 import BlogInteractions from "@/components/BlogInteractions/BlogInteractions";
+import BlogsList from "@/components/BlogsList/BlogsList";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { BookmarkIcon, LinkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
@@ -21,8 +22,10 @@ const Blog = ({ data: blog }) => {
 
    return (
       <div className="p-4 bg-gray-100 min-h-screen">
-         <div className="container mx-auto max-w-screen-md">
-            <header className="flex flex-col md:flex-row md:justify-between items-start gap-y-8 mb-14">
+         <div className="container mx-auto">
+            <header
+               className="flex flex-col md:flex-row md:justify-between items-start gap-y-8 mb-14
+               mx-auto max-w-screen-md">
                {/* blog detail */}
                <div className="flex items-center gap-x-4">
                   {/* image */}
@@ -37,7 +40,7 @@ const Blog = ({ data: blog }) => {
                   <div className="flex flex-col items-start gap-y-2">
                      {/* author and category */}
                      <div className="flex items-center gap-x-2">
-                        <h2 className="font-bold">محراب دهقان</h2>
+                        <h2 className="font-bold">{blog.author.name}</h2>
                         <Link
                            href={`/blogs/${blog.category.englishTitle}`}
                            className="text-sm font-medium border border-blue-400 text-blue-400 px-3 py-1 
@@ -85,7 +88,7 @@ const Blog = ({ data: blog }) => {
             </header>
             <main
                className="prose prose-lg md:prose-xl prose-slate prose-h1:text-3xl prose-h1:font-black
-               prose-h2:text-2xl prose-h2:font-bold prose-img:rounded-xl mb-8">
+               prose-h2:text-2xl prose-h2:font-bold prose-img:rounded-xl mb-8 mx-auto max-w-screen-md">
                <h1>{blog.title}</h1>
                <h2>عنوان تستی اول</h2>
                <p>
@@ -124,7 +127,7 @@ const Blog = ({ data: blog }) => {
                </p>
             </main>
             {/* post tags - like and bookmark */}
-            <section className="flex flex-col items-start gap-y-6">
+            <section className="flex flex-col items-start gap-y-6 pb-8 mx-auto max-w-screen-md">
                {/* tags */}
                <ul className="flex items-center gap-x-4 flex-wrap gap-y-4">
                   {["جاوااسکریپت", "ریکت", "فرانت اند", "وب"].map(
@@ -187,6 +190,13 @@ const Blog = ({ data: blog }) => {
                         </div>
                      </CopyToClipboard>
                   </div>
+               </div>
+            </section>
+            {/* related blogs */}
+            <section className="mx-auto max-w-screen-lg border-t-2 border-gray-500">
+               <h2 className="text-3xl font-black my-8">پست های مرتبط</h2>
+               <div className="grid grid-cols-6 overflow-auto gap-8">
+                  <BlogsList blogs={blog.related} />
                </div>
             </section>
          </div>

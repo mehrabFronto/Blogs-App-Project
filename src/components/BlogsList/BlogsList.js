@@ -39,7 +39,7 @@ const BlogsList = ({ blogs }) => {
                            alt="author"
                            className="w-6 h-6 rounded-full object-cover ring-2 ring-blue-600"
                         />
-                        <span className="text-sm">محراب دهقان</span>
+                        <span className="text-sm">{blog.author.name}</span>
                      </div>
                      <Link
                         href={`/blogs/${blog.category.englishTitle}`}

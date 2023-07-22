@@ -1,5 +1,7 @@
+import BlogComments from "@/components/BlogComments/BlogComments";
 import BlogInteractions from "@/components/BlogInteractions/BlogInteractions";
 import BlogsList from "@/components/BlogsList/BlogsList";
+import toLocalDate from "@/utils/toLocalDate";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { BookmarkIcon, LinkIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
@@ -53,13 +55,7 @@ const Blog = ({ data: blog }) => {
                      <span className="text-sm">{blog.author.biography}</span>
                      {/* data & reading time */}
                      <div className="flex items-center gap-x-2 text-sm">
-                        <span>
-                           {toPersianDigits(
-                              new Date(blog.createdAt).toLocaleDateString(
-                                 "fa-IR",
-                              ),
-                           )}
-                        </span>
+                        <span>{toLocalDate(blog.createdAt)}</span>
                         <span>&bull;</span>
                         <div className="flex items-center gap-x-1">
                            <span>خواندن</span>
@@ -193,12 +189,14 @@ const Blog = ({ data: blog }) => {
                </div>
             </section>
             {/* related blogs */}
-            <section className="mx-auto max-w-screen-lg border-t-2 border-gray-500">
+            <section className="mx-auto max-w-screen-lg border-t-2 border-gray-500 mb-12">
                <h2 className="text-3xl font-black my-8">پست های مرتبط</h2>
-               <div className="grid grid-cols-6 overflow-auto gap-8">
+               <div className="grid grid-cols-6 overflow-auto gap-8 pb-2">
                   <BlogsList blogs={blog.related} />
                </div>
             </section>
+            {/* blog comments */}
+            <BlogComments blog={blog} />
          </div>
       </div>
    );

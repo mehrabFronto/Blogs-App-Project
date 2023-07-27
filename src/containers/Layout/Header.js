@@ -51,9 +51,11 @@ const Header = () => {
                   </li>
 
                   <li className="w-full">
-                     <button className="w-full flex items-center justify-start py-5 pr-2 font-medium">
+                     <Link
+                        href="/signin"
+                        className="w-full flex items-center justify-start py-5 pr-2 font-medium">
                         ورود
-                     </button>
+                     </Link>
                   </li>
 
                   <li className="w-full">

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 import * as Yup from "yup";
 
 const initialValues = {
@@ -22,8 +23,15 @@ const SigninPage = () => {
    const router = useRouter();
 
    const onSubmit = async (values) => {
-      await axios.post("http://localhost:5000/api/user/signin", values);
-      router.push("/");
+      try {
+         await axios.post("http://localhost:5000/api/user/signin", values, {
+            withCredentials: true,
+         });
+         router.push("/");
+         toast.success("وارد شدید");
+      } catch (err) {
+         toast.error(err.response.data.message);
+      }
    };
 
    const formik = useFormik({

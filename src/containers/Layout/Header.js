@@ -92,11 +92,12 @@ const Header = () => {
                </li>
 
                <li>
-                  <button
+                  <Link
+                     href="/signin"
                      className="block py-6 lg:px-4 xl:px-6 2xl:px-8 font-medium hover:bg-neutral-200
                    hover:text-blue-600 transition-all rounded-lg">
                      ورود
-                  </button>
+                  </Link>
                </li>
 
                <li>

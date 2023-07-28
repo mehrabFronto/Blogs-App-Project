@@ -99,7 +99,17 @@ const AuthProvider = ({ children }) => {
                });
             }
          },
-      SIGNOUT: {},
+      SIGNOUT:
+         ({ dispatch }) =>
+         async (action) => {
+            try {
+               await axios.get("http://localhost:5000/api/user/logout", {
+                  withCredentials: true,
+               });
+               toast.success("خارج شدید");
+               window.location.pathname = "/";
+            } catch (err) {}
+         },
    };
 
    const [user, dispatch] = useReducerAsync(

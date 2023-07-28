@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import { HiMenuAlt3, HiOutlineX } from "react-icons/hi";
-import { useAuth } from "src/contexts/AuthContext/AuthProvider";
+import { ImExit } from "react-icons/im";
+import { useAuth, useAuthActions } from "src/contexts/AuthContext/AuthProvider";
 
 const Header = () => {
    const [isOpen, setIsOpen] = useState(false);
 
    const { user, loading } = useAuth();
+   const dispatch = useAuthActions();
 
    return (
       <header className="w-full text-xl fixed top-0 z-50 bg-blue-600 text-white shadow-lg">
@@ -47,12 +49,18 @@ const Header = () => {
                   </li>
 
                   {user ? (
-                     <li className="w-full">
+                     <li className="w-full relative z-40">
                         <Link
                            className="w-full block py-5 pr-2 font-medium"
                            href="/profile">
                            پروفایل
                         </Link>
+                        <button
+                           className="w-7 h-7 text-red-600 bg-neutral-200 flex items-center justify-center
+                        absolute top-5 left-2 rounded-full z-50"
+                           onClick={() => dispatch({ type: "SIGNOUT" })}>
+                           <ImExit className="ml-1" />
+                        </button>
                      </li>
                   ) : (
                      <li className="w-full">
@@ -86,15 +94,20 @@ const Header = () => {
                      بلاگ ها
                   </Link>
                </li>
-
                {user ? (
-                  <li>
+                  <li className="relative z-40">
                      <Link
                         className="block py-6 lg:px-4 xl:px-6 2xl:px-8 font-medium hover:bg-neutral-200
                       hover:text-blue-600 transition-all rounded-lg"
                         href="/profile">
                         پروفایل
                      </Link>
+                     <button
+                        className="w-7 h-7 text-red-600 bg-neutral-200 flex items-center justify-center
+                        absolute top-2 left-[-12px] rounded-full z-50 hover:scale-125 transition-all"
+                        onClick={() => dispatch({ type: "SIGNOUT" })}>
+                        <ImExit className="ml-1" />
+                     </button>
                   </li>
                ) : (
                   <li>

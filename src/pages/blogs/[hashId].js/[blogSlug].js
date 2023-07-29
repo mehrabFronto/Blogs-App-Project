@@ -2,10 +2,10 @@ import BlogComments from "@/components/BlogComments/BlogComments";
 import BlogInteractions from "@/components/BlogInteractions/BlogInteractions";
 import BlogsList from "@/components/BlogsList/BlogsList";
 import Layout from "@/containers/Layout";
+import { getOneBlogService } from "@/services/getOneBlogService";
 import toLocalDate from "@/utils/toLocalDate";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { BookmarkIcon, LinkIcon } from "@heroicons/react/24/outline";
-import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -209,12 +209,7 @@ export async function getServerSideProps(ctx) {
    const { query, req } = ctx;
    const {
       data: { data },
-   } = await axios.get(`http://localhost:5000/api/posts/${query.blogSlug}`, {
-      withCredentials: true,
-      headers: {
-         Cookie: req.headers.cookie,
-      },
-   });
+   } = await getOneBlogService(query.blogSlug, req.headers.cookie);
    return {
       props: {
          data,

@@ -4,7 +4,8 @@ import DesktopSort from "@/components/DesktopSort/DesktopSort";
 import MobileCategory from "@/components/MobileCategory/Mobilecategory";
 import MobileSort from "@/components/MobileSort/MobileSort";
 import Layout from "@/containers/Layout";
-import axios from "axios";
+import { getCategoriesService } from "@/services/getCategoriesService";
+import { getOneCategoryService } from "@/services/getOneCategoryBlogs";
 import queryString from "query-string";
 
 export default function BlogsListPage({ blogsData, blogsCategories }) {
@@ -39,19 +40,12 @@ export default function BlogsListPage({ blogsData, blogsCategories }) {
 export async function getServerSideProps(ctx) {
    const { query, req } = ctx;
 
-   const { data: blogsResult } = await axios.get(
-      `http://localhost:5000/api/posts?${queryString.stringify(query)}`,
-      {
-         withCredentials: true,
-         headers: {
-            Cookie: req.headers.cookie,
-         },
-      },
+   const { data: blogsResult } = await getOneCategoryService(
+      queryString.stringify(query),
+      req.headers.cookie,
    );
 
-   const { data: blogsCategoriesResult } = await axios.get(
-      "http://localhost:5000/api/post-category",
-   );
+   const { data: blogsCategoriesResult } = await getCategoriesService();
 
    const { data: blogsData } = blogsResult;
 

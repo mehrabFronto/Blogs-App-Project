@@ -106,8 +106,8 @@ const AuthProvider = ({ children }) => {
                await axios.get("http://localhost:5000/api/user/logout", {
                   withCredentials: true,
                });
-               toast.success("خارج شدید");
                window.location.pathname = "/";
+               toast.success("خارج شدید");
             } catch (err) {}
          },
    };

@@ -206,10 +206,15 @@ const Blog = ({ data: blog }) => {
 export default Blog;
 
 export async function getServerSideProps(ctx) {
-   const { query } = ctx;
+   const { query, req } = ctx;
    const {
       data: { data },
-   } = await axios.get(`http://localhost:5000/api/posts/${query.blogSlug}`);
+   } = await axios.get(`http://localhost:5000/api/posts/${query.blogSlug}`, {
+      withCredentials: true,
+      headers: {
+         Cookie: req.headers.cookie,
+      },
+   });
    return {
       props: {
          data,

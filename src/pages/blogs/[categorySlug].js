@@ -37,10 +37,16 @@ export default function BlogsListPage({ blogsData, blogsCategories }) {
 }
 
 export async function getServerSideProps(ctx) {
-   const { query } = ctx;
+   const { query, req } = ctx;
 
    const { data: blogsResult } = await axios.get(
       `http://localhost:5000/api/posts?${queryString.stringify(query)}`,
+      {
+         withCredentials: true,
+         headers: {
+            Cookie: req.headers.cookie,
+         },
+      },
    );
 
    const { data: blogsCategoriesResult } = await axios.get(

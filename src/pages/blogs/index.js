@@ -40,9 +40,15 @@ export default function BlogsListPage({ blogsData, blogsCategories }) {
    );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
    const { data: blogsResult } = await axios.get(
       "http://localhost:5000/api/posts?page=1&limit=6",
+      {
+         withCredentials: true,
+         headers: {
+            Cookie: req.headers.cookie,
+         },
+      },
    );
 
    const { data: blogsCategoriesResult } = await axios.get(

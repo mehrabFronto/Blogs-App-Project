@@ -5,8 +5,11 @@ import MobileCategory from "@/components/MobileCategory/Mobilecategory";
 import MobileSort from "@/components/MobileSort/MobileSort";
 import Layout from "@/containers/Layout";
 import axios from "axios";
+import { useAuth } from "src/contexts/AuthContext/AuthProvider";
 
 export default function BlogsListPage({ blogsData, blogsCategories }) {
+   const user = useAuth();
+   console.log(user);
    return (
       <Layout>
          {/* mobile category and sort section */}

@@ -1,4 +1,4 @@
-import axios from "axios";
+import http from "@/services/httpService";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect } from "react";
 import { toast } from "react-hot-toast";
@@ -39,8 +39,8 @@ const AuthProvider = ({ children }) => {
          async (action) => {
             dispatch({ type: "SIGNIN_PENDING" });
             try {
-               const { data } = await axios.post(
-                  "http://localhost:5000/api/user/signin",
+               const { data } = await http.post(
+                  "/user/signin",
                   action.payload,
                   {
                      withCredentials: true,
@@ -62,8 +62,8 @@ const AuthProvider = ({ children }) => {
          async (action) => {
             dispatch({ type: "SIGNIN_PENDING" });
             try {
-               const { data } = await axios.post(
-                  "http://localhost:5000/api/user/signup",
+               const { data } = await http.post(
+                  "/user/signup",
                   action.payload,
                   {
                      withCredentials: true,
@@ -85,12 +85,9 @@ const AuthProvider = ({ children }) => {
          async (action) => {
             dispatch({ type: "SIGNIN_PENDING" });
             try {
-               const { data } = await axios.get(
-                  "http://localhost:5000/api/user/load",
-                  {
-                     withCredentials: true,
-                  },
-               );
+               const { data } = await http.get("/user/load", {
+                  withCredentials: true,
+               });
                dispatch({ type: "SIGNIN_SUCCESS", payload: data });
             } catch (err) {
                dispatch({
@@ -103,7 +100,7 @@ const AuthProvider = ({ children }) => {
          ({ dispatch }) =>
          async (action) => {
             try {
-               await axios.get("http://localhost:5000/api/user/logout", {
+               await http.get("/user/logout", {
                   withCredentials: true,
                });
                window.location.pathname = "/";

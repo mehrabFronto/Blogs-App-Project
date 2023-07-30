@@ -6,11 +6,8 @@ import MobileSort from "@/components/MobileSort/MobileSort";
 import Layout from "@/containers/Layout";
 import { getAllBlogsService } from "@/services/getAllBlogsService";
 import { getCategoriesService } from "@/services/getCategoriesService";
-import { useAuth } from "src/contexts/AuthContext/AuthProvider";
 
 export default function BlogsListPage({ blogsData, blogsCategories }) {
-   const user = useAuth();
-   console.log(user);
    return (
       <Layout>
          {/* mobile category and sort section */}

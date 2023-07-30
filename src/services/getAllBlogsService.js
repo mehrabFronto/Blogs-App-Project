@@ -1,7 +1,7 @@
 import http from "./httpService";
 
-export const getAllBlogsService = (cookie) => {
-   return http.get("/posts?page=1&limit=6", {
+export const getAllBlogsService = (cookie, query) => {
+   return http.get(`/posts?${query}`, {
       headers: {
          Cookie: cookie,
       },

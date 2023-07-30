@@ -6,6 +6,7 @@ import MobileSort from "@/components/MobileSort/MobileSort";
 import Layout from "@/containers/Layout";
 import { getAllBlogsService } from "@/services/getAllBlogsService";
 import { getCategoriesService } from "@/services/getCategoriesService";
+import queryString from "query-string";
 
 export default function BlogsListPage({ blogsData, blogsCategories }) {
    return (
@@ -38,8 +39,11 @@ export default function BlogsListPage({ blogsData, blogsCategories }) {
    );
 }
 
-export async function getServerSideProps({ req }) {
-   const { data: blogsResult } = await getAllBlogsService(req.headers.cookie);
+export async function getServerSideProps({ req, query }) {
+   const { data: blogsResult } = await getAllBlogsService(
+      req.headers.cookie,
+      queryString.stringify(query),
+   );
 
    const { data: blogsCategoriesResult } = await getCategoriesService();
 

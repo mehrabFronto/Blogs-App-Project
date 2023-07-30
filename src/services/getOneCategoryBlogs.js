@@ -1,6 +1,6 @@
 import http from "./httpService";
 
-export const getOneCategoryService = (query, cookie) => {
+export const getOneCategoryBlogsService = (query, cookie) => {
    return http.get(`/posts?${query}`, {
       headers: {
          Cookie: cookie,

@@ -1,3 +1,5 @@
+import http from "@/services/httpService";
+import { routerPush } from "@/utils/routerPush";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import {
    BookmarkIcon,
@@ -9,12 +11,37 @@ import {
    BookmarkIcon as SolidBookmarkIcon,
    HeartIcon as SolidHeartIcon,
 } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 const BlogInteractions = ({ blog, isSmall }) => {
+   const router = useRouter();
+
+   const likeHandler = async () => {
+      try {
+         const { data } = await http.put(`/posts/like/${blog._id}`);
+         routerPush(router);
+         toast.success(data.message);
+      } catch (err) {
+         toast.error(err?.response?.data?.message);
+      }
+   };
+
+   const bookmarkHandler = async () => {
+      try {
+         const { data } = await http.put(`/posts/bookmark/${blog._id}`);
+         routerPush(router);
+         toast.success(data.message);
+      } catch (err) {
+         toast.error(err?.response?.data?.message);
+      }
+   };
+
    return (
       <div className={`flex items-center ${isSmall ? "gap-x-2" : "gap-x-4"} `}>
          {/* like */}
          <button
+            onClick={likeHandler}
             className={`${
                isSmall ? "p-0.5 gap-x-1 text-xs" : "p-1 gap-x-2 text-sm"
             } bg-red-200 text-red-600 rounded-md flex items-center  
@@ -41,6 +68,7 @@ const BlogInteractions = ({ blog, isSmall }) => {
          </button>
          {/* bookmark */}
          <button
+            onClick={bookmarkHandler}
             className={`${
                isSmall ? "p-0.5" : "p-1"
             } bg-blue-200 text-blue-600 rounded-md

@@ -1,3 +1,4 @@
+import PaginationComponent from "@/common/PaginationComponent";
 import BlogsList from "@/components/BlogsList/BlogsList";
 import DesktopCategory from "@/components/DesktopCategory/DesktopCategory";
 import DesktopSort from "@/components/DesktopSort/DesktopSort";
@@ -33,6 +34,10 @@ export default function BlogsListPage({ blogsData, blogsCategories }) {
             {/* blogs section */}
             <div className="md:col-span-8 lg:col-span-9 grid grid-cols-6 gap-8 mt-4 md:mt-0">
                <BlogsList blogs={blogsData.docs} />
+               <PaginationComponent
+                  page={blogsData.page}
+                  totalPages={blogsData.totalPages}
+               />
             </div>
          </div>
       </Layout>

@@ -3,9 +3,8 @@ import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import CommentForm from "./CommentForm";
 
-const SingleComment = ({ comment }) => {
+const SingleComment = ({ comment, postId }) => {
    const [onReply, setOnReply] = useState(false);
-   const [commentValue, setCommentValue] = useState("");
 
    return (
       <div
@@ -32,8 +31,9 @@ const SingleComment = ({ comment }) => {
                   در حال پاسخ به {comment.writer?.name}
                </h3>
                <CommentForm
-                  comment={commentValue}
-                  setComment={setCommentValue}
+                  postId={postId}
+                  responseTo={comment._id}
+                  setOnReply={setOnReply}
                />
             </div>
          )}

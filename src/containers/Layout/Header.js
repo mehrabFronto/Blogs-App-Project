@@ -11,7 +11,7 @@ const Header = () => {
    const dispatch = useAuthActions();
 
    return (
-      <header className="w-full text-xl fixed top-0 z-50 bg-blue-600 text-white shadow-lg">
+      <header className="w-full text-xl sticky top-0 z-50 bg-blue-600 text-white shadow-lg">
          <nav className="w-full h-full container mx-auto flex justify-between items-center px-2 relative">
             <Link href="/">
                <h1 className="text-2xl md:text-3xl font-bold lg:hover:tracking-wider transition-all pr-1">

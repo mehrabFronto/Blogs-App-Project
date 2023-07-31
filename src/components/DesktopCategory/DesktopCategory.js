@@ -9,7 +9,7 @@ const DesktopCategory = ({ blogsCategories }) => {
 
    return (
       // accordian
-      <div className="bg-white rounded-2xl overflow-hidden cursor-pointer shadow-md">
+      <div className="bg-white rounded-2xl overflow-hidden cursor-pointer shadow-md sticky top-24">
          {/* accordian header */}
          <div
             className="flex items-center justify-between p-4 bg-blue-100 text-blue-600"

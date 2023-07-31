@@ -10,7 +10,7 @@ const BlogsList = ({ blogs }) => {
          <div
             key={blog._id}
             className="col-span-6 md:col-span-3 lg:col-span-2 rounded-2xl bg-white
-            w-full flex flex-col items-start shadow-md p-2 text-slate-800 max-h-[420px]">
+            w-full flex flex-col items-start shadow-md p-2 text-slate-800 max-h-[420px] md:max-h-[375px]">
             {/* blog image */}
             <div className="aspect-w-16 aspect-h-9 w-full  mb-4">
                <Link href={`/blogs/${blog.hashId}/${blog.slug}`}>
@@ -37,7 +37,7 @@ const BlogsList = ({ blogs }) => {
                         <img
                            src="/images/md.jpg"
                            alt="author"
-                           className="w-6 h-6 rounded-full object-cover ring-2 ring-blue-600"
+                           className="w-6 h-6 rounded-full ring-2 ring-blue-600"
                         />
                         <span className="text-sm">{blog.author.name}</span>
                      </div>

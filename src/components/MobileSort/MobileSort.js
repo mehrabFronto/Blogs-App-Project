@@ -1,13 +1,35 @@
+import { routerPush } from "@/utils/routerPush";
 import {
    BarsArrowDownIcon,
    FunnelIcon,
    XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const MobileSort = () => {
+   const router = useRouter();
+   const [sort, setSort] = useState(router.query.sort || "newest");
+
    const [isSortOpen, setIsSortOpen] = useState(false);
    const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+   const sortHandler = (id) => {
+      setSort(id);
+      router.query.sort = id;
+      routerPush(router);
+   };
+
+   const sortOptions = [
+      { label: "جدید ترین", id: "newest" },
+      { label: "پر بازدید ترین", id: "most" },
+      { label: "محبوب ترین", id: "popular" },
+   ];
+
+   // this useEffect handle the sort query change in desktop. it changes in desktop , so it changes in mobile too.
+   useEffect(() => {
+      setSort(router.query.sort);
+   }, [router.query.sort]);
 
    return (
       <div className="md:hidden">
@@ -58,17 +80,21 @@ const MobileSort = () => {
                      </button>
                   </div>
                   {/* list */}
-                  <ul className="flex flex-col items-center text-slate-800">
-                     <li className={`w-full text-center py-4 transition-all`}>
-                        جدید ترین
-                     </li>
-                     <li className={`w-full text-center py-4 transition-all`}>
-                        پر بازدید ترین
-                     </li>
-                     <li
-                        className={`w-full text-center py-4 transition-all mb-6`}>
-                        محبوب ترین
-                     </li>
+                  <ul className="flex flex-col items-center ">
+                     {sortOptions.map((sortOption) => {
+                        return (
+                           <li
+                              onClick={() => sortHandler(sortOption.id)}
+                              key={sortOption.id}
+                              className={`w-full text-center py-4 transition-all ${
+                                 sortOption.id === sort
+                                    ? "bg-blue-600 text-blue-100"
+                                    : "text-slate-800"
+                              }`}>
+                              {sortOption.label}
+                           </li>
+                        );
+                     })}
                   </ul>
                </div>
             </>

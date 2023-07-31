@@ -1,10 +1,11 @@
 import BlogComments from "@/components/BlogComments/BlogComments";
 import BlogInteractions from "@/components/BlogInteractions/BlogInteractions";
 import BlogsList from "@/components/BlogsList/BlogsList";
+import Layout from "@/containers/Layout";
+import { getOneBlogService } from "@/services/getOneBlogService";
 import toLocalDate from "@/utils/toLocalDate";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { BookmarkIcon, LinkIcon } from "@heroicons/react/24/outline";
-import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -13,7 +14,7 @@ import { FaTelegram } from "react-icons/fa";
 import { IoLogoLinkedin, IoLogoTwitter } from "react-icons/io";
 
 const Blog = ({ data: blog }) => {
-   const [isCopid, setIsCopied] = useState(false);
+   const [isCopied, setIsCopied] = useState(false);
 
    const copyHandler = () => {
       setIsCopied(true);
@@ -23,8 +24,8 @@ const Blog = ({ data: blog }) => {
    };
 
    return (
-      <div className="p-4 bg-gray-100 min-h-screen">
-         <div className="container mx-auto">
+      <Layout>
+         <div className="container mx-auto mt-4 px-2">
             <header
                className="flex flex-col md:flex-row md:justify-between items-start gap-y-8 mb-14
                mx-auto max-w-screen-md">
@@ -175,7 +176,7 @@ const Blog = ({ data: blog }) => {
                         <div
                            className="flex items-center justify-evenly border border-gray-500 text-gray-500
                            rounded-lg px-2 py-1 gap-x-2 cursor-pointer hover:bg-gray-200 transition-all">
-                           {isCopid ? (
+                           {isCopied ? (
                               <span className="text-blue-600">کپی شد</span>
                            ) : (
                               <>
@@ -198,17 +199,17 @@ const Blog = ({ data: blog }) => {
             {/* blog comments */}
             <BlogComments blog={blog} />
          </div>
-      </div>
+      </Layout>
    );
 };
 
 export default Blog;
 
 export async function getServerSideProps(ctx) {
-   const { query } = ctx;
+   const { query, req } = ctx;
    const {
       data: { data },
-   } = await axios.get(`http://localhost:5000/api/posts/${query.blogSlug}`);
+   } = await getOneBlogService(query.blogSlug, req.headers.cookie);
    return {
       props: {
          data,

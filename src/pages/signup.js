@@ -1,8 +1,11 @@
 import Input from "@/components/FormInput/Input";
 import Layout from "@/containers/Layout";
+import { signupUser } from "@/redux/user/userActions";
 import { useFormik } from "formik";
 import Link from "next/link";
-import { useAuthActions } from "src/contexts/AuthContext/AuthProvider";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 
 const initialValues = {
@@ -28,13 +31,12 @@ const validationSchema = Yup.object({
 });
 
 const SignupPage = () => {
-   const dispatch = useAuthActions();
+   const router = useRouter();
+   const { user } = useSelector((state) => state.userSignup);
+   const dispatch = useDispatch();
 
    const onSubmit = ({ name, email, password, phoneNumber }) => {
-      dispatch({
-         type: "SIGNUP",
-         payload: { name, email, password, phoneNumber },
-      });
+      dispatch(signupUser({ name, email, password, phoneNumber }));
    };
 
    const formik = useFormik({
@@ -43,6 +45,10 @@ const SignupPage = () => {
       validationSchema,
       validateOnMount: true,
    });
+
+   useEffect(() => {
+      if (user) router.push("/");
+   }, [user]);
 
    return (
       <Layout>

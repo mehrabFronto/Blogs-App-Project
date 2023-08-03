@@ -9,7 +9,8 @@
          "@/hooks/*": ["src/hooks/*"],
          "@/common/*": ["src/common/*"],
          "@/utils/*": ["src/utils/*"],
-         "@/services/*": ["src/services/*"]
+         "@/services/*": ["src/services/*"],
+         "@/redux/*": ["src/redux/*"]
       }
    }
 }

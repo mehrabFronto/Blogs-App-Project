@@ -1,6 +1,7 @@
 import BlogInteractions from "@/components/BlogInteractions/BlogInteractions";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { ClockIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import Link from "next/link";
 
 const BlogsList = ({ blogs }) => {
@@ -14,7 +15,13 @@ const BlogsList = ({ blogs }) => {
             {/* blog image */}
             <div className="aspect-w-16 aspect-h-9 w-full  mb-4">
                <Link href={`/blogs/${blog.hashId}/${blog.slug}`}>
-                  <img
+                  <Image
+                     width={"400"}
+                     height={"400"}
+                     quality={100}
+                     placeholder="blur"
+                     blurDataURL={blog.coverImage}
+                     priority
                      src={blog.coverImage}
                      alt={blog.title}
                      className="rounded-xl w-full h-full object-center object-cover"
@@ -34,7 +41,12 @@ const BlogsList = ({ blogs }) => {
                   {/* blog author-catgory */}
                   <div className="w-full flex items-center justify-between">
                      <div className="flex items-center gap-x-2">
-                        <img
+                        <Image
+                           width={"200"}
+                           height={"200"}
+                           quality={100}
+                           placeholder="blur"
+                           blurDataURL="/images/md.jpg"
                            src="/images/md.jpg"
                            alt="author"
                            className="w-6 h-6 rounded-full ring-2 ring-blue-600"

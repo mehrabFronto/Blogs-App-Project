@@ -6,6 +6,7 @@ import { getOneBlogService } from "@/services/getOneBlogService";
 import toLocalDate from "@/utils/toLocalDate";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import { BookmarkIcon, LinkIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -20,7 +21,7 @@ const Blog = ({ data: blog }) => {
       setIsCopied(true);
       setTimeout(() => {
          setIsCopied(false);
-      }, 1000);
+      }, "1000");
    };
 
    return (
@@ -33,7 +34,12 @@ const Blog = ({ data: blog }) => {
                <div className="flex items-center gap-x-4">
                   {/* image */}
                   <div>
-                     <img
+                     <Image
+                        width={"200"}
+                        height={"200"}
+                        quality={100}
+                        placeholder="blur"
+                        blurDataURL="/images/md.jpg"
                         src="/images/md.jpg"
                         alt="avatar"
                         className="w-20 h-20 rounded-full"
@@ -102,7 +108,12 @@ const Blog = ({ data: blog }) => {
                   حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای
                   موجود طراحی اساسا مورد استفاده قرار گیرد.
                </p>
-               <img
+               <Image
+                  width={"1000"}
+                  height={"1000"}
+                  quality={100}
+                  placeholder="blur"
+                  blurDataURL={blog.coverImage}
                   src={blog.coverImage}
                   alt="blog"
                   className="w-full"

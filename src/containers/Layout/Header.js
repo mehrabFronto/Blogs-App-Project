@@ -1,14 +1,15 @@
+import { signoutUser } from "@/redux/user/userActions";
 import Link from "next/link";
 import { useState } from "react";
 import { HiMenuAlt3, HiOutlineX } from "react-icons/hi";
 import { ImExit } from "react-icons/im";
-import { useAuth, useAuthActions } from "src/contexts/AuthContext/AuthProvider";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
    const [isOpen, setIsOpen] = useState(false);
 
-   const { user, loading } = useAuth();
-   const dispatch = useAuthActions();
+   const { user, loading } = useSelector((state) => state.userSignin);
+   const dispatch = useDispatch();
 
    return (
       <header className="w-full text-xl sticky top-0 z-50 bg-blue-600 text-white shadow-lg">
@@ -58,7 +59,7 @@ const Header = () => {
                         <button
                            className="w-7 h-7 text-red-600 bg-neutral-200 flex items-center justify-center
                         absolute top-5 left-2 rounded-full z-50"
-                           onClick={() => dispatch({ type: "SIGNOUT" })}>
+                           onClick={() => dispatch(signoutUser())}>
                            <ImExit className="ml-1" />
                         </button>
                      </li>
@@ -105,7 +106,7 @@ const Header = () => {
                      <button
                         className="w-7 h-7 text-red-600 bg-neutral-200 flex items-center justify-center
                         absolute top-2 left-[-12px] rounded-full z-50 hover:scale-125 transition-all"
-                        onClick={() => dispatch({ type: "SIGNOUT" })}>
+                        onClick={() => dispatch(signoutUser())}>
                         <ImExit className="ml-1" />
                      </button>
                   </li>

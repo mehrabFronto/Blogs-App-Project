@@ -1,8 +1,12 @@
+import SEO from "@/common/SEO";
 import Input from "@/components/FormInput/Input";
 import Layout from "@/containers/Layout";
+import { signupUser } from "@/redux/user/userActions";
 import { useFormik } from "formik";
 import Link from "next/link";
-import { useAuthActions } from "src/contexts/AuthContext/AuthProvider";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 
 const initialValues = {
@@ -28,13 +32,12 @@ const validationSchema = Yup.object({
 });
 
 const SignupPage = () => {
-   const dispatch = useAuthActions();
+   const router = useRouter();
+   const { user } = useSelector((state) => state.userSignup);
+   const dispatch = useDispatch();
 
    const onSubmit = ({ name, email, password, phoneNumber }) => {
-      dispatch({
-         type: "SIGNUP",
-         payload: { name, email, password, phoneNumber },
-      });
+      dispatch(signupUser({ name, email, password, phoneNumber }));
    };
 
    const formik = useFormik({
@@ -44,70 +47,80 @@ const SignupPage = () => {
       validateOnMount: true,
    });
 
-   return (
-      <Layout>
-         <div className="container mx-auto max-w-[500px] px-2 mt-6">
-            <form
-               className="w-full flex flex-col items-start gap-y-8"
-               onSubmit={formik.handleSubmit}>
-               {/* Page title */}
-               <h1 className="text-blue-600 text-3xl font-black">ثبت نام</h1>
-               {/* inputs */}
-               <div className="flex flex-col gap-y-6 w-full pr-2">
-                  {/* name section */}
-                  <Input
-                     label="نام"
-                     name="name"
-                     formik={formik}
-                     placeholder="نام..."
-                  />
-                  {/* email section */}
-                  <Input
-                     label="ایمیل"
-                     name="email"
-                     formik={formik}
-                     placeholder="ایمیل..."
-                  />
-                  {/* phone number section */}
-                  <Input
-                     label="شماره تلفن"
-                     name="phoneNumber"
-                     formik={formik}
-                     placeholder="شماره تلفن..."
-                  />
-                  {/* password section */}
-                  <Input
-                     label="رمز عبور"
-                     name="password"
-                     formik={formik}
-                     placeholder="رمز عبور..."
-                     type="password"
-                  />
-                  {/* confirm section */}
-                  <Input
-                     label="تایید رمز عبور"
-                     name="confirmPassword"
-                     formik={formik}
-                     placeholder="تایید رمز عبور..."
-                     type="password"
-                  />
+   useEffect(() => {
+      if (user) router.push("/");
+   }, [user]);
 
-                  {/* submit btn */}
-                  <button
-                     className="w-full bg-blue-600 text-white py-3 rounded-lg mt-2 disabled:opacity-50 outline-none"
-                     type="submit"
-                     disabled={!formik.isValid}>
-                     ثبت نام
-                  </button>
-               </div>
-               <Link
-                  href="/signin"
-                  className="pr-2 text-blue-600 font-medium text-base">
-                  از قبل ثبت نام کرده اید؟
-               </Link>
-            </form>
-         </div>
-      </Layout>
+   return (
+      <>
+         <SEO
+            title="ایجاد حساب کاربری"
+            desc="صفحه ی ثبت نام"
+         />
+         <Layout>
+            <div className="container mx-auto max-w-[500px] px-2 mt-6">
+               <form
+                  className="w-full flex flex-col items-start gap-y-8"
+                  onSubmit={formik.handleSubmit}>
+                  {/* Page title */}
+                  <h1 className="text-blue-600 text-3xl font-black">ثبت نام</h1>
+                  {/* inputs */}
+                  <div className="flex flex-col gap-y-6 w-full pr-2">
+                     {/* name section */}
+                     <Input
+                        label="نام"
+                        name="name"
+                        formik={formik}
+                        placeholder="نام..."
+                     />
+                     {/* email section */}
+                     <Input
+                        label="ایمیل"
+                        name="email"
+                        formik={formik}
+                        placeholder="ایمیل..."
+                     />
+                     {/* phone number section */}
+                     <Input
+                        label="شماره تلفن"
+                        name="phoneNumber"
+                        formik={formik}
+                        placeholder="شماره تلفن..."
+                     />
+                     {/* password section */}
+                     <Input
+                        label="رمز عبور"
+                        name="password"
+                        formik={formik}
+                        placeholder="رمز عبور..."
+                        type="password"
+                     />
+                     {/* confirm section */}
+                     <Input
+                        label="تایید رمز عبور"
+                        name="confirmPassword"
+                        formik={formik}
+                        placeholder="تایید رمز عبور..."
+                        type="password"
+                     />
+
+                     {/* submit btn */}
+                     <button
+                        className="w-full bg-blue-600 text-white py-3 rounded-lg mt-2 disabled:opacity-50 outline-none"
+                        type="submit"
+                        disabled={!formik.isValid}>
+                        ثبت نام
+                     </button>
+                  </div>
+                  <Link
+                     href="/signin"
+                     className="pr-2 text-blue-600 font-medium text-base">
+                     از قبل ثبت نام کرده اید؟
+                  </Link>
+               </form>
+            </div>
+         </Layout>
+      </>
    );
 };
 

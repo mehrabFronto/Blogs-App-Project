@@ -8,11 +8,12 @@
 
 Here're some of the project's best features:
 
-*   Filtering blogs based on categories in a category slug page
-*   Adding nested comments for blogs
-*   Like and bookmark blogs
-*   Pagination blogs using mui
-*   Sign-in, Sign-up and sign-out handling by redux and redux-thunk
-*   Responsive style for mobile, tablet, laptop and large laptop
+
+<li>Filtering blogs based on categories within a category slug page.</li>
+<li>Created nested comments for blogs.</li>
+<li>Able to Like and bookmark blogs</li>
+<li>Utilized pagination for blogs using MUI to enhance content navigation.</li>
+<li>Managing sign-in, sign-up, and sign-out processes with Redux and Redux-Thunk, utilizing email and password authentication.</li>
+<br />
 
 <p>Because back-end is local, project could not be deployed on a server</p>

@@ -13,12 +13,21 @@ import {
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const BlogInteractions = ({ blog, isSmall }) => {
    const router = useRouter();
 
+   const { user, loading } = useSelector((state) => state.userSignin);
+
+   console.log(user,loading);
+
    const likeHandler = async () => {
+      if(!user && !loading)
+         return toast.error("لطفا ابتدا لاگین کنید");
+
       try {
+
          const { data } = await http.put(`/posts/like/${blog._id}`);
          routerPush(router);
          toast.success(data.message);
@@ -28,7 +37,11 @@ const BlogInteractions = ({ blog, isSmall }) => {
    };
 
    const bookmarkHandler = async () => {
+      if(!user && !loading)
+         return toast.error("لطفا ابتدا لاگین کنید");
+      
       try {
+
          const { data } = await http.put(`/posts/bookmark/${blog._id}`);
          routerPush(router);
          toast.success(data.message);

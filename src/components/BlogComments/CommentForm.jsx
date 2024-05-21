@@ -3,14 +3,22 @@ import { routerPush } from "@/utils/routerPush";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const CommentForm = ({ postId, responseTo, setOnReply = () => {} }) => {
    const [commentValue, setCommentValue] = useState("");
+
+   const { user, loading } = useSelector((state) => state.userSignin);
+
 
    const router = useRouter();
 
    const submitHandler = async (e) => {
       e.preventDefault();
+
+      if(!user && !loading)
+         return toast.error("لطفا ابتدا لاگین کنید");
+
       const newComment = {
          content: commentValue,
          postId,
